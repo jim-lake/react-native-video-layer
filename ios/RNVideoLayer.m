@@ -13,6 +13,7 @@
 - (void)setOptions:(NSDictionary *)options;
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification;
+- (void)appWillEnterForeground:(NSNotification *)notification;
 
 @end
 
@@ -93,6 +94,10 @@ static VideoLayer *_videoLayer;
       selector:@selector(playerItemDidReachEnd:)
       name:AVPlayerItemDidPlayToEndTimeNotification
       object:[_player currentItem]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+      selector:@selector(appWillEnterForeground:)
+      name:UIApplicationWillEnterForegroundNotification
+      object:nil];
     _isObserverSet = true;
   }
   return item != nil;
@@ -118,6 +123,10 @@ static VideoLayer *_videoLayer;
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
   [_player seekToTime:kCMTimeZero];
+  [_player play];
+}
+
+- (void)appWillEnterForeground:(NSNotification *)notification {
   [_player play];
 }
 
