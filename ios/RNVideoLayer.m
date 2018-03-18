@@ -10,6 +10,7 @@
 
 - (BOOL)play:(NSDictionary *)source;
 - (void)stop;
+- (void)setOptions:(NSDictionary *)options;
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification;
 
@@ -74,6 +75,7 @@ static VideoLayer *_videoLayer;
       _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
       _playerLayer.frame = keyWindow.frame;
       _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+      _playerLayer.zPosition = -99999.0f;
       [keyWindow.layer insertSublayer:_playerLayer atIndex:0];
 
       [_player seekToTime:kCMTimeZero];
@@ -94,6 +96,13 @@ static VideoLayer *_videoLayer;
     _isObserverSet = true;
   }
   return item != nil;
+}
+
+- (void)setOptions:(NSDictionary *)options {
+  NSNumber *rate = [options objectForKey:@"rate"];
+  if (rate != nil) {
+    [_player setRate:[rate floatValue]];
+  }
 }
 
 - (void)stop {
@@ -125,8 +134,9 @@ static VideoLayer *_videoLayer;
 }
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(play:(NSDictionary *)source) {
+RCT_EXPORT_METHOD(play:(NSDictionary *)source options:(NSDictionary *)options) {
   [[VideoLayer sharedInstance] play:source];
+  [[VideoLayer sharedInstance] setOptions:options];
 }
 
 RCT_EXPORT_METHOD(stop) {

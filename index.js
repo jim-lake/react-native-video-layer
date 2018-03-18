@@ -5,7 +5,7 @@ import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
 const { RNVideoLayer } = NativeModules;
 
-function play(arg) {
+function play(arg,options) {
   let source = {};
   if (typeof arg == 'string') {
     source = {
@@ -30,7 +30,8 @@ function play(arg) {
     mainVer: source.mainVer || 0,
     patchVer: source.patchVer || 0,
   };
-  RNVideoLayer.play(src);
+  options = options || {};
+  RNVideoLayer.play(src,options);
 }
 
 export default {
