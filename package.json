@@ -1,6 +1,6 @@
 {
   "name": "react-native-video-layer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React-Native video layer independant of view hierarchy",
   "main": "index.js",
   "scripts": {

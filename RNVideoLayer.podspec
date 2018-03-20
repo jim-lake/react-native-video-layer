@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNVideoLayer"
-  s.version      = "1.0.3"
+  s.version      = "1.0.4"
   s.summary      = "RNVideoLayer"
   s.description  = <<-DESC
                   React Native Video layer outside of view hierarchy

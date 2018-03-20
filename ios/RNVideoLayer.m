@@ -108,6 +108,10 @@ static VideoLayer *_videoLayer;
   if (rate != nil) {
     [_player setRate:[rate floatValue]];
   }
+  NSNumber *muted = [options objectForKey:@"muted"];
+  if ([muted boolValue]) {
+    _player.muted = true;
+  }
 }
 
 - (void)stop {
